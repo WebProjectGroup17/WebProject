@@ -1,3 +1,4 @@
+
 const username = document.getElementById('username');
 const password = document.getElementById('password');
 const username2 = document.getElementById('username1');
@@ -37,28 +38,24 @@ function checkInputsForSignIn(){
     const usernameValue = username.value;
     const passwordValue = password.value;
 
-    errorUsername.classList.remove('error')
-    if(usernameValue == ''){
-        //show error + error class
-        errorUsername.innerText = "Username cannot be blank"
-        errorUsername.classList.add('error')
-        dontSubmit = true;
-    }else {
-        //success class
-        checkSuccess(username);
-        dontSubmit = false;
+    const myHeaders = new Headers()
+    myHeaders.append('Content-Type', 'application/json')
+    const raw = JSON.stringify({
+        email:usernameValue,
+        password:passwordValue
+    })
+
+
+    const requestOptions = {
+        method:'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
     }
-    errorPassword.classList.remove('error')
-    if(passwordValue === ''){
-        //show error + error class
-        errorPassword.innerText = "Password cannot be blank"
-        errorPassword.classList.add('error')
-        dontSubmit = true;
-    }else {
-        //success class
-        checkSuccess(password);
-        dontSubmit = false;
-    }
+
+    fetch('http://localhost:8012/api/authenticate', requestOptions).then(response => response.json()).then(data => {
+        authentication(data, usernameValue, passwordValue) //admin status accessed
+    }) .catch(error => console.error(error))
 
 }
 
@@ -135,4 +132,40 @@ function checkSuccess(input){
 
 function isEmail(email){
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function authentication(data, usernameValue, passwordValue){
+    console.log(data)
+
+    errorUsername.classList.remove('error')
+    if(usernameValue == ''){
+        //show error + error class
+        errorUsername.innerText = "Username cannot be blank"
+        errorUsername.classList.add('error')
+        dontSubmit = true;
+    }else {
+        //success class
+        checkSuccess(username);
+        dontSubmit = false;
+    }
+    errorPassword.classList.remove('error')
+    if(passwordValue === ''){
+        //show error + error class
+        errorPassword.innerText = "Password cannot be blank"
+        errorPassword.classList.add('error')
+        dontSubmit = true;
+    }else {
+        //success class
+        checkSuccess(password);
+        dontSubmit = false;
+    }if(data.admin == 1){
+        console.log('Redirect to admin page')
+        //add page
+    }else{
+        console.log('Redirect to user page')
+        //add page
+    }
+
+
+
 }

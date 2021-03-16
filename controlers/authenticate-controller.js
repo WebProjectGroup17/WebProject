@@ -9,11 +9,14 @@ module.exports.authenticate=function(req,res){
             message:'there are some error with query'
             })
       }else{
+        console.log(results, req.body)
+
         if(results.length >0){
             if(password==results[0].password){
                 res.json({
                     status:true,
-                    message:'successfully authenticated'
+                    message:'successfully authenticated',
+                    admin:results[0].admin //returning admin status
                 })
             }else{
                 res.json({
