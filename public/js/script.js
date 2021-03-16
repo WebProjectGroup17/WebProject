@@ -56,7 +56,6 @@ function checkInputsForSignIn(){
     fetch('http://localhost:8012/api/authenticate', requestOptions).then(response => response.json()).then(data => {
         authentication(data, usernameValue, passwordValue) //admin status accessed
     }) .catch(error => console.error(error))
-
 }
 
 function checkInputsForSignUp(){
@@ -65,59 +64,27 @@ function checkInputsForSignUp(){
     const passwordValue = password1.value;
     const passwordValue2 = password2.value;
 
+    const myHeaders = new Headers()
+    myHeaders.append('Content-Type', 'application/json')
+    const raw = JSON.stringify({
+        name:usernameValue,
+        password:passwordValue,
+        email:emailValue,
+        admin:0
+    })
 
-    errorRegUsername.classList.remove('error')
-    if(usernameValue == ''){
-        //show error + error class
-        errorRegUsername.innerText = "Username cannot be blank"
-        errorPassword.classList.add('error')
-     
-        dontSubmit = true;
-    }else {
-        //success class
-        checkSuccess(username1);
-        dontSubmit = false;
+    const requestOptions = {
+        method:'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
     }
 
-    errorEmail.classList.remove('error')
-    if(emailValue === ''){
-        //show error + error class
-        errorEmail.innerText = "Email cannot be blank"
-        errorEmail.classList.add('error')
-        dontSubmit = true;
-    }else if(!isEmail(emailValue)){
-        errorEmail.innerText = "Email must contain @, '.'"
-        errorEmail.classList.add('error')
-        dontSubmit = true;
-    }else{
-        checkSuccess(email);
-        dontSubmit = false;
-    }
-
-    errorRegPassword.classList.remove('error')
-    if(passwordValue === ''){
-        //show error + error class
-        errorRegPassword.innerText = "Password cannot be blank"
-        errorRegPassword.classList.add('error')
-        dontSubmit = true;
-    }else {
-        //success class
-        checkSuccess(password1);
-        dontSubmit = false;
-    }
-    
-    errorRegPasswordConf.classList.remove('error')
-    if(passwordValue === ''){
-        //show error + error class
-        errorRegPasswordConf.innerText = "Password cannot be blank"
-        errorRegPasswordConf.classList.add('error')
-        dontSubmit = true;
-    }else {
-        //success class
-        checkSuccess(password2);
-        dontSubmit = false;
-    }
-
+    fetch('http://localhost:8012/api/register', requestOptions).then(response => response.json()).then(data => {
+        console.log(data)
+    //registration(data, usernameValue, passwordValue, emailValue) //user registered
+    }) .catch(error => console.error(error))  
+   
 }
 
 
@@ -165,7 +132,62 @@ function authentication(data, usernameValue, passwordValue){
         console.log('Redirect to user page')
         //add page
     }
-
-
-
 }
+
+    function registration(data, usernameValue, passwordValue, emailValue, admin){
+
+        errorRegUsername.classList.remove('error')
+        if(usernameValue == ''){
+            //show error + error class
+            errorRegUsername.innerText = "Username cannot be blank"
+            errorPassword.classList.add('error')
+         
+            dontSubmit = true;
+        }else {
+            //success class
+            checkSuccess(username1);
+            dontSubmit = false;
+        }
+    
+        errorEmail.classList.remove('error')
+        if(emailValue === ''){
+            //show error + error class
+            errorEmail.innerText = "Email cannot be blank"
+            errorEmail.classList.add('error')
+            dontSubmit = true;
+        }else if(!isEmail(emailValue)){
+            errorEmail.innerText = "Email must contain @, '.'"
+            errorEmail.classList.add('error')
+            dontSubmit = true;
+        }else{
+            checkSuccess(email);
+            dontSubmit = false;
+        }
+    
+        errorRegPassword.classList.remove('error')
+        if(passwordValue === ''){
+            //show error + error class
+            errorRegPassword.innerText = "Password cannot be blank"
+            errorRegPassword.classList.add('error')
+            dontSubmit = true;
+        }else {
+            //success class
+            checkSuccess(password1);
+            dontSubmit = false;
+        }
+        
+        errorRegPasswordConf.classList.remove('error')
+        if(passwordValue === ''){
+            //show error + error class
+            errorRegPasswordConf.innerText = "Password cannot be blank"
+            errorRegPasswordConf.classList.add('error')
+            dontSubmit = true;
+        }else {
+            //success class
+            checkSuccess(password2);
+            dontSubmit = false;
+        }
+    }
+
+
+
