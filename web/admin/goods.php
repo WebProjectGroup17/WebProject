@@ -4,7 +4,7 @@ session_start();
 //import mysql file
 include('../mysql.php');
 
-//处理分页信息
+//preparing product page
 $page = empty($_GET['page'])?1:$_GET['page'];
 $recordcount = mysqli_num_rows(query("select * from goods"));
 $pages = ceil($recordcount/12.0);

@@ -1,7 +1,7 @@
 <?php
-//开启session
+//Begain session
 session_start();
-//引用mysql文件
+//importing mySql
 include('mysql.php');
 
 $kw = $_GET["kw"];

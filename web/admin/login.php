@@ -63,7 +63,7 @@ if($_POST)
 			<tr>
 				<td align="right"> </td>
 				<td>
-					<input type="submit" value="登 陆" />
+					<input type="submit" value="Login" />
 				</td>
 			</tr>
 		</table>

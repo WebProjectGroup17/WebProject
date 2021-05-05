@@ -33,13 +33,13 @@ if($_POST)
 	{
 		if($file['error']<=0)
 		{
-			//获取文件名
+			//Get file name
 			$filename = $_FILES["img"]["name"];
-			//获取文件扩展名
+			//get file extension
 			$ext = pathinfo($filename,PATHINFO_EXTENSION);
-			//随机生成新的文件名
+			//generating random name
 			$filepath = md5(uniqid(mt_rand())).".".$ext;
-			//上传
+			//upload
 			move_uploaded_file($_FILES["img"]["tmp_name"], "img/".$filepath);
 		}
 		echo $sql =  "insert into goods(`goodsName`,`price`,`desc`,`image`,`catid`,`uid`,`addTime`) values('".$name."','".$price."','".$desc."','".$filepath."','".$_POST['cate']."','".$_SESSION['id']."','".date("Y-m-d H:i")."')";
@@ -81,10 +81,10 @@ if($_POST)
 				<td>
 				<select name="cate">	
 					<?php
-						//查询最新的商品
+						//Check the latest products
 						include('mysql.php');
 						$sql = 'select * from cate where type = 1 order by id desc ';
-						//执行sql
+						//Execute sql
 						$res = query($sql);
 						while($r = mysqli_fetch_array($res)){
 							echo '<option value="'.$r['id'].'">'.$r['title'].'</option>';

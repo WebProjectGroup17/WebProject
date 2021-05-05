@@ -1,17 +1,17 @@
 <?php
-//开启session
+//begain session
 session_start();
-//引用mysql文件
+//mysql importing
 include('mysql.php');
 
-//处理分页信息
+//Processing product page  information
 $page = empty($_GET['page'])?1:$_GET['page'];
 $recordcount = mysqli_num_rows(query("select * from goods"));
 $pages = ceil($recordcount/12.0);
 if($page<=0) $page = 1;
 if($page>$pages) $page = $pages;
 
-//判断是否登录
+//Determine whether to log in
 if(empty($_SESSION['id']))
 {
 	header("location:login.php");
@@ -38,9 +38,9 @@ if(empty($_SESSION['id']))
 			<th align="center"> </th>
 		</tr>
 	<?php
-	//查询最新的商品
+	//Check the latest products
 	$sql = "select goods.*,cate.title as cname,user.username as uname from goods left join cate on cate.id = goods.catid  left join user on user.id = goods.uid where goods.uid = {$_SESSION['id']} order by id desc limit ".(($page-1)*12).",12";
-	//执行sql
+	//Execute sql
 	$res = query($sql);
 	while($r = mysqli_fetch_array($res)){
 	?>

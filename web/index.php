@@ -1,7 +1,7 @@
 <?php
-//开启session
+// begain session
 session_start();
-//引用mysql文件
+//importing mySql
 include('mysql.php');
 ?>
 <!DOCTYPE html>

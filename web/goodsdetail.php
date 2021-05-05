@@ -1,13 +1,13 @@
 <?php
-//开启session
+//begain session
 session_start();
-//获取id
+//Get id
 $id = $_GET['id'];
-//查询所有电影的sql语句
+//Query sql statement for all products
 $sql = 'select * from goods where id='.$id;
-//引用mysql文件
+//mysql imorting
 include('mysql.php');
-//执行sql
+//sql query 
 $res = query($sql);
 $film = mysqli_fetch_array($res);
 ?>

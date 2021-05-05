@@ -37,13 +37,13 @@ if($_POST)
 	{
 		if($file['error']<=0)
 		{
-			//获取文件名
+			//Get File Name
 			$filename = $_FILES["img"]["name"];
-			//获取文件扩展名
+			//get File Extension
 			$ext = pathinfo($filename,PATHINFO_EXTENSION);
-			//随机生成新的文件名
+			//Randomly generate a new file name
 			$filepath = md5(uniqid(mt_rand())).".".$ext;
-			//上传
+			//Upload
 			move_uploaded_file($_FILES["img"]["tmp_name"], "../img/".$filepath);
 		}
 
@@ -58,7 +58,7 @@ if($_POST)
 <head lang="en">
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="css/css.css" />
-	<title>Edit商品</title>
+	<title>Edit Product</title>
 </head>
 <body>
 <?php include("header.php"); ?>
@@ -85,9 +85,9 @@ if($_POST)
 				<td>
 				<select name="catid">	
 					<?php
-						//查询最新的商品
+						//Check the latest products
 						$sql = 'select * from cate where type = 1 order by id desc ';
-						//执行sql
+						//Execute sql
 						$res = query($sql);
 						while($r = mysqli_fetch_array($res)){
 							$selected = $film['catid'] == $r['id']?'selected':'';

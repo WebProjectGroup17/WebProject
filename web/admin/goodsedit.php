@@ -36,13 +36,13 @@ if($_POST)
 	{
 		if($file['error']<=0)
 		{
-			//获取文件名
+			//get filename
 			$filename = $_FILES["img"]["name"];
-			//获取文件扩展名
+			//Get file extension
 			$ext = pathinfo($filename,PATHINFO_EXTENSION);
-			//随机生成新的文件名
+			//Randomly generate a new file name
 			$filepath = md5(uniqid(mt_rand())).".".$ext;
-			//上传
+			//Upload
 			move_uploaded_file($_FILES["img"]["tmp_name"], "../img/".$filepath);
 		}
 

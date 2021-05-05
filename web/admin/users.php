@@ -1,17 +1,17 @@
 <?php
-//开启session
+//began session
 session_start();
-//引用mysql文件
+//importing mySql
 include('../mysql.php');
 
-//处理分页信息
+//user's info
 $page = empty($_GET['page'])?1:$_GET['page'];
 $recordcount = mysqli_num_rows(query("select * from user where isAdmin = 0"));
 $pages = ceil($recordcount/12.0);
 if($page<=0) $page = 1;
 if($page>$pages) $page = $pages;
 
-//判断是否登录
+//Determine whether to log in
 if(empty($_SESSION['adminid']))
 {
 	header("location:login.php");
