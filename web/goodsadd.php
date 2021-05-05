@@ -1,4 +1,5 @@
 <?php
+//begain session
 session_start();
 if(empty($_SESSION['id']))
 {
