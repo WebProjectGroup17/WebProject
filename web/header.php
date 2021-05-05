@@ -15,9 +15,11 @@
                     if(empty($_SESSION['id'])) {?>
                         <a href="reg.php" class="item">Register</a>
                         <a href="login.php" class="item">Login</a>
+                        <a href="aboutus.html"class="item">About us</a>
                     <?php } else { ?>
                         Welcome,<?php echo $_SESSION['name']; ?>！
                         <a href="goods.php" class="item">Products</a>
+                        <a href="aboutus.html"class="item">About us</a>
                         <a href='exit.php'>Logout</a>&nbsp;&nbsp;
                     <?php } ?>
                 </div>
